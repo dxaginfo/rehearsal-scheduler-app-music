@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: music
+      POSTGRES_PASSWORD: music_password
+      POSTGRES_DB: rehearsal_scheduler
+    ports:
+      - "5432:5432"
+  app:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      DB_USER: music
+      DB_PASS: music_password
+      DB_NAME: rehearsal_scheduler
+    depends_on:
+      - postgres
